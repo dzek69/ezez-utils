@@ -165,9 +165,8 @@ describe("mapValues", () => {
 
         const res = mapValues(array, (val) => (typeof val === "string" ? REMOVE : val));
 
-        // eslint-disable-next-line no-sparse-arrays
         res.must.eql([
-            1, , 1, , 69,
+            1, , 1, , 69, // eslint-disable-line no-sparse-arrays
         ]);
         ("0" in res).must.be.true();
         ("1" in res).must.be.false();

@@ -85,6 +85,7 @@ object, with just some properties copied. Easy, right? Few lines of code? Lodash
 - `noop` - do nothing
 - `rethrow` - throw given value
 - `seq` - sequentially execute Promise-returning functions until one returns a value
+- `retry` - execute Promise-returning in a loop until it resolves
 - `wait` - wait given amount of time (async)
 - `waitSync` - wait given amount of time (sync)
 - `waitFor` - wait for a condition to be true, checking every given amount of time

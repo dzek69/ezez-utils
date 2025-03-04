@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
+## [4.2.0] - 2025-03-04
+### Added
+- `retry` method
+
 ## [4.1.0] - 2024-05-31
 ### Fixed
 - `sample` adds `undefined` to the result type unless the input is a tuple

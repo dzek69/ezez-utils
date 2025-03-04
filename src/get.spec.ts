@@ -48,7 +48,6 @@ describe("get", () => {
         const value = get(testObject, "product.name");
         value.must.equal("abc");
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const _value = _get(testObject, "product.name");
         value.must.equal(_value);
     });
@@ -59,7 +58,6 @@ describe("get", () => {
         const name = get(testObject, "product[name]");
         (name === undefined).must.be.true();
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const _name = _get(testObject, "product[name]"); // deep value
         _name.must.equal("abc");
 
@@ -74,7 +72,7 @@ describe("get", () => {
         const value = get(testObject, "product.something");
         (value === undefined).must.be.true();
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
         const _value = _get(testObject, "product.something");
         (_value === undefined).must.be.true();
     });
@@ -83,7 +81,6 @@ describe("get", () => {
         const value = get(testObject, "product.something", 3);
         value.must.equal(3);
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const _value = _get(testObject, "product.something", 3);
         _value.must.equal(3);
     });
@@ -92,7 +89,6 @@ describe("get", () => {
         const value = get(testObject, "product.value", 3);
         (value === undefined).must.be.true();
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const _value = _get(testObject, "product.value", 3);
         _value.must.equal(3);
     });
@@ -101,7 +97,6 @@ describe("get", () => {
         const value = get(testObject, "product.empty", 3);
         (value === null).must.be.true();
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const _value = _get(testObject, "product.empty", 3);
         (_value === null).must.be.true();
     });
@@ -110,7 +105,6 @@ describe("get", () => {
         const value = get(testObject, "product.notANumber", 3);
         value.must.be.nan();
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const _value = _get(testObject, "product.notANumber", 3);
         _value.must.be.nan();
     });
@@ -119,7 +113,6 @@ describe("get", () => {
         const value = get(testObject, "product.object");
         value.must.equal(otherObject);
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const _value = _get(testObject, "product.object");
         _value.must.equal(otherObject);
     });
@@ -144,7 +137,6 @@ describe("get", () => {
         const value = get(NaN, "product.object", 3);
         value.must.equal(3);
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const _value = _get(NaN, "product.object", 3);
         _value.must.equal(3);
     });
