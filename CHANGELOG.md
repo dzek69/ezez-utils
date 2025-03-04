@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
+## [4.3.0] - 2025-03-04
+### Added
+- `race` method
+
 ## [4.2.0] - 2025-03-04
 ### Added
 - `retry` method

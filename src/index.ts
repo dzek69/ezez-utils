@@ -32,6 +32,7 @@ export * from "./occurrences.js";
 export * from "./omit.js";
 export * from "./pick.js";
 export * from "./pull.js";
+export * from "./race.js";
 export * from "./remove.js";
 export * from "./removeCommonProperties.js";
 export * from "./replace.js";
