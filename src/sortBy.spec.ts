@@ -53,4 +53,17 @@ describe("sortBy", () => {
             { size: 90 },
         ]);
     });
+
+    it("supports using default value", () => {
+        const sizes = [
+            { size: 30 },
+            { size: 90 },
+            {},
+        ];
+        sizes.sort(sortBy("size", true, 55)).must.eql([
+            { size: 30 },
+            {}, // size assumed to be 55
+            { size: 90 },
+        ]);
+    });
 });

@@ -7,6 +7,7 @@
  * type Data = { a: number };
  * const myPromise = new Promise<Data>((resolve) => setTimeout(() => resolve({ a: 1 }), 2000));
  * const { a } = await race(myPromise, 1000); // You're allowed to destructure the result with TS
+ * ```
  *
  * @param promise - Your promise
  * @param timeout - Time in milliseconds to wait for the promise to resolve

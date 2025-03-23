@@ -50,6 +50,7 @@ export * from "./set.js";
 export * from "./setImmutable.js";
 export * from "./shuffle.js";
 export * from "./sortBy.js";
+export * from "./sortByMultiple.js";
 export * from "./sortProps.js";
 export * from "./stripPrefix.js";
 export * from "./stripSuffix.js";
