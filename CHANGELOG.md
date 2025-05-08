@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
+## [4.5.0] - 2025-05-08
+### Added
+- `serializeToBuffer` method
+- `unserializeFromBuffer` method (aliased as `deserializeFromBuffer`)
+- `unserialize` alias to `deserialize` method
+### Fixed
+- `serialize` JSDoc mentioned custom serializer limitation with values with `.toJSON` method that was fixed in 4.0.0
+
 ## [4.4.0] - 2025-03-23
 ### Added
 - `sortByMultiple` method

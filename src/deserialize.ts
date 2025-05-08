@@ -69,6 +69,6 @@ const deserialize = <T>(serializedString: string, customDeserializers?: CustomDe
     return hasUndefined ? replaceDeep(parsed, UNDEFINED, undefined) : parsed;
 };
 
-export { deserialize };
+export { deserialize, deserialize as unserialize };
 
 export type { CustomDeserializers };

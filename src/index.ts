@@ -1,4 +1,6 @@
 /* eslint-disable import/max-dependencies */
+export * from "./serializeToBuffer/serializeToBuffer.js";
+export * from "./serializeToBuffer/unserializeFromBuffer.js";
 export * from "./ensurePrefix.js";
 export * from "./ensureSuffix.js";
 export * from "./cap.js";

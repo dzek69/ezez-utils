@@ -23,8 +23,7 @@ type Options = {
  *
  * It also supports custom serializers, which can be used to serialize custom data types. Each value has a prefix which
  * specifies the type of the value, custom serializers is a map of these prefixes to functions which can serialize the
- * value into a string. IMPORTANT: Because this is using JSON.serialize under the hood if a value to serialize includes
- * `toJSON` it won't trigger custom serializer but will be serialized as string. `Date` class defines `toJSON` method!
+ * value into a string.
  *
  * The extra aim of this function is to produce the same output for "the same" data, regardless of the order of the keys
  * (which is not guaranteed by JS spec, but in practice it is guaranteed by current implementations of all JS engines),
