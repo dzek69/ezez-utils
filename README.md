@@ -30,14 +30,17 @@ object, with just some properties copied. Easy, right? Few lines of code? Lodash
 ## Supported methods
 
 ### String related
-- `addPrefix` - add prefix to a string if not already present
-- `addSuffix` - add suffix to a string if not already present
 - `capitalize` - capitalize a string, optionally lower casing the rest
+- `ensurePrefix` - add prefix to a string if not already present
+- `ensureSuffix` - add suffix to a string if not already present
 - `isNumericString` - check if given value is a numeric string, features configurable
 - `occurrences` - count occurrences of a substring in a string, optionally allow overlapping
 - `replace` - replace all occurrences of a substring using a map of replacements
 - `stripPrefix` - strip prefix from a string
 - `stripSuffix` - strip suffix from a string
+- `trim` - remove given characters from both sides of a string
+- `trimEnd` - remove given characters from the end of a string
+- `trimStart` - remove given characters from the start of a string
 
 ### Number related
 - `cap` - cap a value between lower and upper bound
@@ -53,7 +56,12 @@ object, with just some properties copied. Easy, right? Few lines of code? Lodash
 - `mostFrequent` - find most frequent value in an array
 - `pull` - remove values from an array (by mutating)
 - `remove` - remove values from an array (by mutating) using predicate function and return removed values
+- `sample` - pick a random element from an array
+- `samples` - pick multiple random elements from an array without duplicates
+- `shuffle` - shuffle an array, returning a new array
 - `sortBy` - sort an array by given property (create callback function for `Array.prototype.sort`)
+- `sortByMultiple` - sort an array by multiple properties with individual sort directions
+- `toggle` - toggle an item in an array (add if missing, remove if present)
 - `unique` - get unique values from an array
 
 ### Object related
@@ -64,9 +72,11 @@ object, with just some properties copied. Easy, right? Few lines of code? Lodash
 - `merge` - merge two objects shallowly, allowing to remove properties while doing so
 - `omit` - omit properties from an object
 - `pick` - pick some properties from an object
+- `removeCommonProperties` - remove properties from targets that have the same value as in source
 - `replaceDeep` - recursively replace all occurrences of a value in an object/array
-- `sortProps` - sort object properties by key
+- `replaceDeepByFn` - recursively replace values in an object/array using a callback function
 - `serialize` - like JSON.stringify but any data type is allowed
+- `sortProps` - sort object properties by key
 
 ### Date related
 - `ensureDate` - ensure that given value is a Date instance
@@ -80,22 +90,25 @@ object, with just some properties copied. Easy, right? Few lines of code? Lodash
 - `safe` - runs function and returns its result or default value if function throws an error
 
 ### Flow related
+- `ignore` - execute a callback and ignore its result, errors, or promise rejections
 - `later` - create a promise you can resolve later, outside of Promise constructor
 - `mapAsync` - map an array asynchronously if sync version blocks your event loop for too long
 - `noop` - do nothing
+- `race` - timeout your promises while keeping TypeScript types correct
 - `rethrow` - throw given value
-- `seq` - sequentially execute Promise-returning functions until one returns a value
 - `retry` - execute Promise-returning in a loop until it resolves
+- `seq` - sequentially execute Promise-returning functions until one returns a value
 - `wait` - wait given amount of time (async)
-- `waitSync` - wait given amount of time (sync)
 - `waitFor` - wait for a condition to be true, checking every given amount of time
+- `waitSync` - wait given amount of time (sync)
 
 ### Various
 - `get` - extract a value from a deep object using specified path, optionally with a default value
 - `getMultiple` - same as above, but test multiple paths
+- `isEmpty` - check if given value is empty
+- `memoize` - memoize a function, caching the result of the last call
 - `set` - set a value in a deep object using specified path
 - `setImmutable` - set a value in a deep object using specified path, but return a new object
-- `isEmpty` - check if given value is empty
 - `throttle` - throttle a function, very configurable
 - `truthy` - is value truthy? (useful for filtering with more correct TypeScript support than `filter(Boolean)`)
 
