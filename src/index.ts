@@ -17,6 +17,7 @@ export * from "./escapeRegExp.js";
 export * from "./formatDate.js";
 export * from "./get.js";
 export * from "./getMultiple.js";
+export * from "./ignore.js";
 export * from "./insertSeparator.js";
 export * from "./isEmpty.js";
 export * from "./isNumericString.js";

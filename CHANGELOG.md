@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
+## [4.5.0+] - 2025-10-10
+### Added
+- `ignore` method
+
 ## [4.5.0] - 2025-05-08
 ### Added
 - `serializeToBuffer` method
@@ -44,7 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `replaceDeep` will not mutate anything by default anymore — previously it was wrongly documented as always mutating,
 but it was not mutating objects. Mutating behavior can now be enabled and additionally controlled by defining if
 instances properties are allowed to be mutated.
-- [`serialize`] to avoid excessive calls to serializer functions - they are now only called with non-plain objects or
+- `serialize` to avoid excessive calls to serializer functions - they are now only called with non-plain objects or
 unknown data types, this breaks some rare use cases
 ### Changed
 - `serialize` custom serializers now allow things like `Date` (that defines .toJSON) to be supported as the user would

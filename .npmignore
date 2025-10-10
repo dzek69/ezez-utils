@@ -15,3 +15,7 @@
 
 /pagesconfig.json
 /eslint.config.mjs
+/typedoc.mjs
+/.prettierignore
+/.prettierrc.json
+/.husky
