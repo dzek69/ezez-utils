@@ -17,7 +17,7 @@ const NOT_FOUND = -1;
  * @param {boolean} [options.allowInfinity=false] - Allow Infinity and -Infinity (casing matters)
  * @param {boolean} [options.allowNaN=false] - Allow NaN (casing matters)
  */
-const isNumericString = (string: string, options: Options = {}) => { // eslint-disable-line max-statements, max-lines-per-function
+const isNumericString = (string: string, options: Options = {}): boolean => { // eslint-disable-line max-statements, max-lines-per-function
     if (typeof string !== "string") {
         throw new TypeError("Expected a string");
     }

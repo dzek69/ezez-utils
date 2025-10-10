@@ -1,3 +1,5 @@
+import must from "must"; // eslint-disable-line @typescript-eslint/no-shadow
+
 import { trimStart } from "./trimStart";
 
 describe("trimStart", () => {

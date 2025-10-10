@@ -6,7 +6,7 @@
  * @param {string} string - string to add suffix to
  * @param {string} suffix - suffix to add
  */
-const ensureSuffix = (string: string, suffix: string) => {
+const ensureSuffix = (string: string, suffix: string): string => {
     if (string.endsWith(suffix)) {
         return string;
     }

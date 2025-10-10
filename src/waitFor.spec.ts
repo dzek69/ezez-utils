@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-shadow
 import must from "must";
 
+// @ts-ignore
 import createSpy from "../test/createSpy";
-
-import { waitFor } from "./waitFor";
 import { wait } from "./wait";
+import { waitFor } from "./waitFor";
 
 describe("waitFor", () => {
     it("calls function multiple times until it returns truthy value", async () => {
@@ -91,12 +91,13 @@ describe("waitFor", () => {
 
     it("crashes if check function crashes", async () => {
         await waitFor(() => {
+            // @ts-ignore
             throw new Error(5);
-        }, 40).then(() => {
+        }, { interval: 40 }).then(() => {
             throw new Error("Should not resolve");
-        }, (e) => {
+        }, (e: unknown) => {
             must(e).instanceOf(Error);
-            must(e.message).equal("[waitFor] check function threw an error");
+            must((e as Error).message).equal("[waitFor] check function threw an error");
         });
     });
 
@@ -134,11 +135,11 @@ describe("waitFor", () => {
         it("by crashing if check function returns rejected promise", async () => {
             await waitFor(() => {
                 return Promise.reject(new Error("oops"));
-            }, 40).then(() => {
+            }, { interval: 40 }).then(() => {
                 throw new Error("Should not resolve");
-            }, (e) => {
+            }, (e: unknown) => {
                 must(e).instanceOf(Error);
-                must(e.message).equal("[waitFor] check function threw an error");
+                must((e as Error).message).equal("[waitFor] check function threw an error");
             });
         });
     });

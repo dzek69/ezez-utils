@@ -9,7 +9,7 @@
  * trimEnd("abcxzyz", "yz"); // "abcxz"
  * trimEnd("!aaa!!", "!"); // "!aaa"
  */
-const trimEnd = (source: string, characters: string) => {
+const trimEnd = (source: string, characters: string): string => {
     let s = source;
     while (s.endsWith(characters)) {
         s = s.slice(0, -characters.length);

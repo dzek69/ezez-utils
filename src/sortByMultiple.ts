@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+
 /**
  * Returns a function that can be used as a callback to `.sort()` method. Returned function will sort array by given
  * properties.
@@ -34,12 +36,12 @@ const sortByMultiple = <
     ascending: boolean | Record<K[number], boolean> = true,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     defaultValues?: Partial<Record<K[number], any>>, // Force defaultValues to use only keys from K
-): ((a: T, b: T) => number) => (a: T, b: T) => {
+): ((a: T, b: T) => 1 | -1 | 0) => (a: T, b: T): 1 | -1 | 0 => {
     for (const propertyName of propertyNames) {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         const asc = typeof ascending === "boolean" ? ascending : (ascending[propertyName] ?? true);
-        const aBiggerValue = asc ? 1 : -1; // eslint-disable-line @typescript-eslint/no-magic-numbers
-        const bBiggerValue = asc ? -1 : 1; // eslint-disable-line @typescript-eslint/no-magic-numbers
+        const aBiggerValue = asc ? 1 : -1;
+        const bBiggerValue = asc ? -1 : 1;
 
         const aValue = a[propertyName] ?? defaultValues?.[propertyName];
         const bValue = b[propertyName] ?? defaultValues?.[propertyName];

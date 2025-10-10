@@ -22,7 +22,7 @@ type Obj = Record<string, unknown>;
  * @example removeCommonProperties({ title: "Hello", author: "John"}, { title: "Hello 2", author: "John" }, { title: "Hello 3", author: "Matt" });
  * // targets: { title: "Hello 2", author: "John" }, { title: "Hello 3", author: "Matt" }
  */
-const removeCommonProperties = (source: Obj, target1: Obj, ...targetN: Obj[]) => {
+const removeCommonProperties = (source: Obj, target1: Obj, ...targetN: Obj[]): void => {
     const targets = [target1, ...targetN];
     const keys = Object.keys(source);
     for (const key of keys) {

@@ -6,9 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
-## [4.5.0+] - 2025-10-10
+## [4.6.0] - 2025-10-10
 ### Added
 - `ignore` method
+### Changed
+- `ensureError` will now return original error as `cause`
+- deprecated `isEmpty`
+- better return type of `safe`
+- seq will return `cause` on the error (in addition to `details` property, which is no deprecated)
+### Dev
+- linting chores
+- all the functions (except one) has explicit return type
 
 ## [4.5.0] - 2025-05-08
 ### Added

@@ -1,6 +1,6 @@
-import { sortProps } from "./sortProps.js";
-import { replaceDeepByFn } from "./replaceDeepByFn.js";
 import { isPlainObject } from "./isPlainObject.js";
+import { replaceDeepByFn } from "./replaceDeepByFn.js";
+import { sortProps } from "./sortProps.js";
 import { DataWrapper } from "./utils/utils.js";
 
 type CustomSerializers = {
@@ -34,7 +34,7 @@ type Options = {
  * @param customSerializers - an object with custom serializers
  * @param options - options
  */
-const serialize = (data: unknown, customSerializers?: CustomSerializers, options?: Options) => { // eslint-disable-line max-lines-per-function
+const serialize = (data: unknown, customSerializers?: CustomSerializers, options?: Options): string => { // eslint-disable-line max-lines-per-function
     const sourceData = Object.keys(customSerializers ?? {}).length
         ? replaceDeepByFn(
             data,

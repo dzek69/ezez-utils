@@ -5,7 +5,7 @@ type MatchCallback<T> = (value: T) => boolean;
  * @param {Array} list - original array
  * @param {function} fn - function matching elements
  */
-const match = <T>(list: T[], fn: MatchCallback<T>) => {
+const match = <T>(list: T[], fn: MatchCallback<T>): { matched: T[]; unmatched: T[] } => {
     const matched: T[] = [];
     const unmatched: T[] = [];
     list.forEach(item => {

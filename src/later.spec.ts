@@ -28,6 +28,7 @@ describe("later", () => {
         const l = later();
         l.reject(new Error("foo"));
 
+        // eslint-disable-next-line @typescript-eslint/await-thenable
         await l.promise.must.reject.with.error("foo");
     });
 });

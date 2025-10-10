@@ -3,7 +3,6 @@
  * @param {Array} array
  */
 const mostFrequent = <T>(array: T[]): T => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     let top = 0,
         topValue = array[0];
 

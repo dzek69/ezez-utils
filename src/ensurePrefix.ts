@@ -6,7 +6,7 @@
  * @param {string} string - string to add prefix to
  * @param {string} prefix - prefix to add
  */
-const ensurePrefix = (string: string, prefix: string) => {
+const ensurePrefix = (string: string, prefix: string): string => {
     if (string.startsWith(prefix)) {
         return string;
     }

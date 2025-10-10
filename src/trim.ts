@@ -1,5 +1,5 @@
-import { trimStart } from "./trimStart.js";
 import { trimEnd } from "./trimEnd.js";
+import { trimStart } from "./trimStart.js";
 
 /**
  * Removes given characters from both sides of the string.
@@ -14,10 +14,11 @@ import { trimEnd } from "./trimEnd.js";
  * trim("!aaa!!!", "!"); // "aaa"
  * trim("!aaa!!!", "!!!"); // "!aaa"
  */
-const trim = (source: string, characters: string) => {
+const trim = (source: string, characters: string): string => {
     return trimStart(trimEnd(source, characters), characters);
 };
 
 export {
     trim,
 };
+

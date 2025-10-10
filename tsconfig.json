@@ -22,7 +22,7 @@
         "isolatedModules": true,
         "jsx": "react-jsx",
         "lib": [
-            "es2020",
+            "es2022",
             "dom"
         ],
         "mapRoot": null,
@@ -57,7 +57,7 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
-        "target": "es2020",
+        "target": "es2022",
         "tsBuildInfoFile": null,
         "typeRoots": null,
         "types": null,

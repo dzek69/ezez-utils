@@ -9,7 +9,7 @@ const isObject = (value: unknown) => (typeof value === "object" || typeof value 
 
 const clone = (value: unknown[] | Source) => {
     if (Array.isArray(value)) {
-        return [...value as never as unknown[]]; // typecasts to satisfy eslint
+        return [...value];
     }
     return { ...value };
 };

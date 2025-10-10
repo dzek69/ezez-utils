@@ -18,7 +18,7 @@ const NOT_FOUND = -1;
  * @param {object} [options] - options
  * @param {boolean} [options.overlap=false] - allow overlapping matches, ie "aa" in "aaa" will return 2 instead of 1
  */
-const occurrences = (string: string, search: string, { overlap }: Options = {}) => {
+const occurrences = (string: string, search: string, { overlap }: Options = {}): number => {
     if (typeof string !== "string") {
         throw new TypeError("Expected a string");
     }

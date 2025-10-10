@@ -1,3 +1,5 @@
+import must from "must"; // eslint-disable-line @typescript-eslint/no-shadow
+
 import type { CustomSerializers } from "./serialize";
 
 import { serialize } from "./serialize";
@@ -9,7 +11,6 @@ interface Test {
 class Person {
     public name: string;
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     public constructor(name: string) {
         this.name = name;
     }

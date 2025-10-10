@@ -1,3 +1,5 @@
+import must from "must"; // eslint-disable-line @typescript-eslint/no-shadow
+
 import { waitSync } from "./waitSync.js";
 
 describe("wait", () => {

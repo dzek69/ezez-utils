@@ -9,7 +9,7 @@
  * regex.test(badName); // true
  * ```
  */
-const escapeRegExp = (string: string) => {
+const escapeRegExp = (string: string): string => {
     return string.replace(/[/\-\\^$*+?.()|[\]{}]/gu, "\\$&");
 };
 

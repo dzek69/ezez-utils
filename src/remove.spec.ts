@@ -1,7 +1,7 @@
 import { remove as _remove } from "lodash";
 
+// @ts-ignore
 import createSpy from "../test/createSpy.js";
-
 import { remove } from "./remove.js";
 
 describe("remove", () => {

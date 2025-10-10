@@ -1,5 +1,4 @@
 import { serialize } from "../serialize.js";
-
 import { BINARY_MARK_BIN, BINARY_MARK_JSON, BINARY_MARK_STRING } from "./const.js";
 
 type SerializeArgs = Parameters<typeof serialize> extends [any, ...infer Rest] ? Rest : never; // eslint-disable-line @typescript-eslint/no-explicit-any

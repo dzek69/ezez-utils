@@ -10,11 +10,15 @@
  * @param {*} e - value to check
  * @returns Error - original error or new Error instance
  */
-const ensureError = (e: unknown) => {
+const ensureError = (e: unknown): Error => {
     if (e instanceof Error) {
         return e;
     }
-    return new Error("Expected error instance, got something else: " + String(e));
+
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    return new Error("Expected error instance, got something else: " + String(e), {
+        cause: e,
+    });
 };
 
 export {

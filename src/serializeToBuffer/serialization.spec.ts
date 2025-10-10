@@ -1,7 +1,7 @@
 import must from "must"; // eslint-disable-line @typescript-eslint/no-shadow
 
-import { unserializeFromBuffer } from "./unserializeFromBuffer";
 import { serializeToBuffer } from "./serializeToBuffer";
+import { unserializeFromBuffer } from "./unserializeFromBuffer";
 
 const serialize = serializeToBuffer.bind(null, Buffer, []);
 const unserialize = unserializeFromBuffer.bind(null, Buffer, []);
@@ -41,7 +41,7 @@ describe("serialization", () => {
     });
 
     it("serializes JSON-looking string", async () => {
-        const data = [`"TEST"`];
+        const data = ["\"TEST\""];
         must(unserialize(serialize(...data))).eql(data);
     });
 

@@ -48,7 +48,11 @@ const run = <T>(list: Fn<T>[], earlyBreaker?: EarlyBreaker): Promise<T> => {
             }
             const fn = promises.shift();
             if (typeof fn !== "function") {
-                const finalError = new Error("Every function had thrown.");
+                const finalError = new Error("Every function had thrown.", {
+                    cause: {
+                        errors,
+                    },
+                });
                 // @ts-expect-error More details on error object are wanted
                 finalError.details = { errors };
                 reject(finalError);
@@ -73,7 +77,7 @@ const run = <T>(list: Fn<T>[], earlyBreaker?: EarlyBreaker): Promise<T> => {
  * arguments with array
  * @returns {*} - whatever gets returned from given functions
  */
-const seqEarlyBreak = <T>(earlyBreaker: EarlyBreaker | undefined, ...args: Functions<T>) => {
+const seqEarlyBreak = <T>(earlyBreaker: EarlyBreaker | undefined, ...args: Functions<T>): Promise<T> => {
     if (args.length === 1) {
         return run(Array.isArray(args[0]) ? args[0] : [args[0]], earlyBreaker);
     }
@@ -91,7 +95,7 @@ const seqEarlyBreak = <T>(earlyBreaker: EarlyBreaker | undefined, ...args: Funct
  * arguments with array
  * @returns {*} - whatever gets returned from given functions
  */
-const seq = <T>(...fns: Functions<T>) => {
+const seq = <T>(...fns: Functions<T>): Promise<T> => {
     return seqEarlyBreak(undefined, ...fns);
 };
 

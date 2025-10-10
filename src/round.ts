@@ -10,7 +10,7 @@
  * @param value - value to round
  * @param precision - precision to round to
  */
-const round = (value: number, precision?: number) => {
+const round = (value: number, precision?: number): number => {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     const multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;

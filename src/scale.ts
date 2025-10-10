@@ -9,7 +9,7 @@
  * @param {number} toMax
  * @param {number} number
  */
-const scale = (fromMin: number, fromMax: number, toMin: number, toMax: number, number: number) => {
+const scale = (fromMin: number, fromMax: number, toMin: number, toMax: number, number: number): number => {
     return toMin + ((number - fromMin) / (fromMax - fromMin) * (toMax - toMin));
 };
 

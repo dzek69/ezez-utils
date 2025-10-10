@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+
 import { sortByMultiple } from "./sortByMultiple.js";
 
 /**
@@ -10,7 +12,7 @@ import { sortByMultiple } from "./sortByMultiple.js";
  */
 const sortBy = <T extends Record<string | number | symbol, any>>( // eslint-disable-line @typescript-eslint/no-explicit-any
     propertyName: keyof T, asc = true, defaultValue: unknown = null,
-) => (a: T, b: T) => {
+) => (a: T, b: T): -1 | 0 | 1 => {
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-explicit-any
     return sortByMultiple([propertyName], asc, { [propertyName]: defaultValue } as Partial<Record<keyof T, any>>)(a, b);
 };

@@ -4,7 +4,7 @@
  * @param {number} upperLimit - upper limit, inclusive
  * @param {number} [lowerLimit] - lower limit, inclusive
  */
-const cap = (value: number, upperLimit: number, lowerLimit?: number) => {
+const cap = (value: number, upperLimit: number, lowerLimit?: number): number => {
     if (lowerLimit == null) {
         return Math.min(value, upperLimit);
     }

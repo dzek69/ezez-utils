@@ -10,11 +10,12 @@ function safe<T, Y>(fn: () => T, def: Y): T | Y;
  * safe(() => JSON.parse(unknownString), null); // if unknownString is not a valid JSON, null will be returned
  * safe(() => trySomethingComplicated(), defaultValue); // if trySomethingComplicated throws, defaultValue will be returned
  */
-function safe<T, Y>(fn: () => T, def?: Y) { // eslint-disable-line func-style
+function safe<T, Y>(fn: () => T, def?: Y): T | (Y extends undefined ? undefined : Y) {
     try {
         return fn();
     }
     catch {
+        // @ts-ignore ts can't do conditional returns in runtime
         return def;
     }
 }

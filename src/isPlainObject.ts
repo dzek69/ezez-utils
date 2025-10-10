@@ -7,7 +7,7 @@
  * @example isPlainObject(5); // returns false
  * @param value - value to test
  */
-const isPlainObject = (value: unknown) => Boolean(
+const isPlainObject = (value: unknown): boolean => Boolean(
     value
     && typeof value === "object"
     && (

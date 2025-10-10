@@ -3,7 +3,7 @@
  * @param {number} timeMs - time to wait
  * @returns {Promise<void>}
  */
-const wait = (timeMs = 0) => {
+const wait = (timeMs = 0): Promise<void> => {
     return new Promise<void>((resolve) => {
         setTimeout(() => { resolve(); }, timeMs);
     });

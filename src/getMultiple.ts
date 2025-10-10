@@ -29,7 +29,6 @@ const DEFAULT = {};
  * @returns {*} - found value or default value
  */
 const getMultiple = (source: Source, defaultValue: unknown, ...paths: (string | string[])[]): unknown => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const length = paths.length;
     for (let i = 0; i < length; i++) {
         const properties = paths[i]!;

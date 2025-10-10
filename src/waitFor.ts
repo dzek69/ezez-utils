@@ -39,7 +39,7 @@ const defaultOptions: Required<Options> = {
  * @param fn - callback function
  * @param options - options object
  */
-const waitFor = <T>(fn: () => MaybePromise<T>, options: Options = defaultOptions) => {
+const waitFor = <T>(fn: () => MaybePromise<T>, options: Options = defaultOptions): Promise<T> => {
     return new Promise<T>((resolve, reject) => {
         let intervalTimer: TTimeout, failTimer: TTimeout;
 

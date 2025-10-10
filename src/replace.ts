@@ -7,7 +7,7 @@ import { escapeRegExp } from "./escapeRegExp.js";
  * @example replace("Hello, %name%!", { "%name%: "John" }) // "Hello, John!"
  * @example replace("Hello, %name%! Nice to meet you %name%!", { "%name%": "Jane" }) // "Hello, Jane! Nice to meet you Jane!"
  */
-const replace = (source: string, replaceMap: Record<string, string>) => {
+const replace = (source: string, replaceMap: Record<string, string>): string => {
     const keys = Object.keys(replaceMap);
     if (keys.length === 0) {
         return source;

@@ -8,10 +8,15 @@ import { ensureDate } from "./ensureDate.js";
  *
  * Important: this is work in progress. All locale-based values are not supported yet. Formats that heavily depend on
  * locale won't ever be supported.
+ *
+ * @example
+ * ```typescript
+ * formatDate(Date.now(), "%Y-%m-%d %H:%M:%S"); // ie: "2024-06-26 14:23:45"
+ * ```
  */
 const formatDate = (date: Date | number, format: string, locale = "en-US"): string => { // eslint-disable-line max-lines-per-function
     const d = ensureDate(date);
-    return format.replace(/%([%a-zA-Z])/gu, (_, c) => {
+    return format.replace(/%([%a-zA-Z])/gu, (_, c: string) => {
         switch (c) {
             case "%": return "%";
             // Day
@@ -64,7 +69,7 @@ const formatDate = (date: Date | number, format: string, locale = "en-US"): stri
             case "n": return "\n";
             case "t": return "\t";
         }
-        return c as string;
+        return c;
     });
 };
 

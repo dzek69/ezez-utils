@@ -10,7 +10,7 @@
  * @param fn - function to memoize
  * @returns memoized function
  */
-const memoize = <Args extends unknown[], Ret>(fn: (...args: Args) => Ret) => {
+const memoize = <Args extends unknown[], Ret>(fn: (...args: Args) => Ret): (this: unknown, ...args: Args) => Ret => {
     let lastArgs: Args | undefined, lastResult: Ret, lastThis: unknown;
 
     return function memoized(this: unknown, ...args: Args): Ret {

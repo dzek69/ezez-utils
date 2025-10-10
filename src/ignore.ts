@@ -19,7 +19,7 @@
  * ```
  * @param callback
  */
-const ignore = (callback: () => unknown) => {
+const ignore = (callback: () => unknown): undefined => {
     try {
         // eslint-disable-next-line callback-return
         const p = callback();

@@ -1,5 +1,4 @@
 import { deserialize } from "../deserialize.js";
-
 import { BINARY_MARK_BIN, BINARY_MARK_MAP, BINARY_MARK_STRING } from "./const.js";
 
 const MAX_DATA_PARTS = 4;

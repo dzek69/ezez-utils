@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-shadow
 import must from "must";
 
+// @ts-ignore
 import createSpy from "../test/createSpy";
-
 import { memoize } from "./memoize";
 
 describe("memoize", () => {

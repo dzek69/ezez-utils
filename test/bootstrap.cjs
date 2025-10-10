@@ -1,3 +1,1 @@
-const must = require("must/register");
-// @ts-ignore
-global.must = must;
+require("must/register");
