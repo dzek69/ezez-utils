@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
+## [4.7.0] - 2025-10-16
+### Added
+- `hasProps` method
+- `assertProps` method
+### Changed
+- deprecated `match`
+
 ## [4.6.0] - 2025-10-10
 ### Added
 - `ignore` method
