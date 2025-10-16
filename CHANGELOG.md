@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
+## [4.7.1] - 2025-10-16
+### Fixed
+- added missing exports of `hasProps` and `assertProps`
+
 ## [4.7.0] - 2025-10-16
 ### Added
 - `hasProps` method

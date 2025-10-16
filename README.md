@@ -88,6 +88,8 @@ object, with just some properties copied. Easy, right? Few lines of code? Lodash
 - `ensureError` - ensure that given value is an error
 - `escapeRegExp` - escape a string to be used in a regular expression
 - `safe` - runs function and returns its result or default value if function throws an error
+- `hasProps` - runtime check and type guard to ensure that given object has specified properties
+- `assertProps` - like `hasProps` but throws if check fails
 
 ### Flow related
 - `ignore` - execute a callback and ignore its result, errors, or promise rejections
