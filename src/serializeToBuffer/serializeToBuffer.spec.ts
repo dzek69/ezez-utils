@@ -1,8 +1,10 @@
 import must from "must"; // eslint-disable-line @typescript-eslint/no-shadow
 
 import { serializeToBuffer } from "./serializeToBuffer";
+import { unserializeFromBuffer } from "./unserializeFromBuffer";
 
 const serialize = serializeToBuffer.bind(null, Buffer, []);
+const unserialize = unserializeFromBuffer.bind(null, Buffer, []);
 
 describe("serialize", () => {
     it("serializes basic string", async () => {
@@ -40,4 +42,30 @@ describe("serialize", () => {
         must(serialize(1).toString("hex")).equal("356a00226e3a312200");
     });
     // TODO more tests
+
+    it("serializes-deserializes to the same value", async () => {
+        justString: {
+            const input = "Hello";
+            const serialized = serialize(input);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const [deserialized] = unserialize(serialized);
+            must(deserialized).eql(input);
+        }
+
+        unicodeString: {
+            const input = "Hejżeśświat!";
+            const serialized = serialize(input);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const [deserialized] = unserialize(serialized);
+            must(deserialized).eql(input);
+        }
+
+        emojiString: {
+            const input = "Hello 👋 World 🌍 🎉";
+            const serialized = serialize(input);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const [deserialized] = unserialize(serialized);
+            must(deserialized).eql(input);
+        }
+    });
 });

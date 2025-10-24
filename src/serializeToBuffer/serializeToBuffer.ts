@@ -70,7 +70,11 @@ const serializeToBuffer = (
     const dataToSend: Buffer[] = [];
     let totalLength = 0;
     convertedArgs.forEach((arg) => {
-        const len = String(arg.data.length) + arg.mark;
+        // For strings and JSON, we need byte length, not character length
+        const dataByteLength = arg.mark === BINARY_MARK_BIN
+            ? arg.data.length
+            : BufferImplementation.byteLength(arg.data, "utf-8");
+        const len = String(dataByteLength) + arg.mark;
 
         dataToSend.push(BufferImplementation.from(len, "utf-8"));
         dataToSend.push(separator);
@@ -78,7 +82,7 @@ const serializeToBuffer = (
         dataToSend.push(arg.mark === BINARY_MARK_BIN ? arg.data : BufferImplementation.from(arg.data, "utf-8"));
         dataToSend.push(separator);
 
-        totalLength += len.length + separator.length + arg.data.length + separator.length;
+        totalLength += len.length + separator.length + dataByteLength + separator.length;
     });
 
     return BufferImplementation.concat(dataToSend, totalLength);
