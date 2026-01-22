@@ -16,6 +16,7 @@ export * from "./ensureError.js";
 export * from "./ensureTimestamp.js";
 export * from "./escapeRegExp.js";
 export * from "./formatDate.js";
+export * from "./formatHash.js";
 export * from "./get.js";
 export * from "./getMultiple.js";
 export * from "./hasProps.js";

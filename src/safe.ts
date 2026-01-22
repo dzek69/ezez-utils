@@ -15,7 +15,7 @@ function safe<T, Y>(fn: () => T, def?: Y): T | (Y extends undefined ? undefined 
         return fn();
     }
     catch {
-        // @ts-ignore ts can't do conditional returns in runtime
+        // @ts-expect-error ts can't do conditional returns in runtime
         return def;
     }
 }

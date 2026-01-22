@@ -33,6 +33,7 @@ object, with just some properties copied. Easy, right? Few lines of code? Lodash
 - `capitalize` - capitalize a string, optionally lower casing the rest
 - `ensurePrefix` - add prefix to a string if not already present
 - `ensureSuffix` - add suffix to a string if not already present
+- `formatHash` - trim the string in the middle and replace with ellipsis
 - `isNumericString` - check if given value is a numeric string, features configurable
 - `occurrences` - count occurrences of a substring in a string, optionally allow overlapping
 - `replace` - replace all occurrences of a substring using a map of replacements

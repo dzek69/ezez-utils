@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type IsTuple<T> = T extends readonly [infer A, ...(infer B)] ? true : false;
 type MaybeTupleReturn<T> = IsTuple<T> extends true
-    ? (T extends readonly (infer U)[] ? U : never)
-    : (T extends (infer U)[] ? U | undefined : never);
+    ? (T extends ReadonlyArray<infer U> ? U : never)
+    : (T extends Array<infer U> ? U | undefined : never);
 
 /**
  * Picks a random element from an array.

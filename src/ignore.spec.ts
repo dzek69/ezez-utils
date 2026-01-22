@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-shadow
 import must from "must";
 
-// @ts-ignore
+// @ts-expect-error Complaining about root dir
 import createSpy from "../test/createSpy";
 import { ignore } from "./ignore";
 import { wait } from "./wait";

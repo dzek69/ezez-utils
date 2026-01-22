@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
+## [4.8.0] - 2026-01-22
+### Added
+- `formatHash` method
+
 ## [4.7.2] - 2025-10-16
 ### Fixed
 - serializeToBuffer misbehaving on multi-byte characters

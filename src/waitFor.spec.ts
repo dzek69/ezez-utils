@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-shadow
 import must from "must";
 
-// @ts-ignore
+// @ts-expect-error Complaining about root dir
 import createSpy from "../test/createSpy";
 import { wait } from "./wait";
 import { waitFor } from "./waitFor";
@@ -91,8 +91,7 @@ describe("waitFor", () => {
 
     it("crashes if check function crashes", async () => {
         await waitFor(() => {
-            // @ts-ignore
-            throw new Error(5);
+            throw new Error("5");
         }, { interval: 40 }).then(() => {
             throw new Error("Should not resolve");
         }, (e: unknown) => {

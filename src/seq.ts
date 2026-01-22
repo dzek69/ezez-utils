@@ -15,7 +15,7 @@ type Fn<T> = () => T;
  *
  * @see {@link seq}
  */
-type Functions<T> = Fn<T>[] | [Fn<T>[]];
+type Functions<T> = Array<Fn<T>> | [Array<Fn<T>>];
 
 /**
  * A function that decides if the sequential run should be early stopped.
@@ -25,7 +25,7 @@ type Functions<T> = Fn<T>[] | [Fn<T>[]];
  */
 type EarlyBreaker = (e: unknown) => boolean;
 
-const run = <T>(list: Fn<T>[], earlyBreaker?: EarlyBreaker): Promise<T> => {
+const run = <T>(list: Array<Fn<T>>, earlyBreaker?: EarlyBreaker): Promise<T> => {
     if (!list.length) {
         return fail();
     }
@@ -81,7 +81,7 @@ const seqEarlyBreak = <T>(earlyBreaker: EarlyBreaker | undefined, ...args: Funct
     if (args.length === 1) {
         return run(Array.isArray(args[0]) ? args[0] : [args[0]], earlyBreaker);
     }
-    return run(args as Fn<T>[], earlyBreaker);
+    return run(args as Array<Fn<T>>, earlyBreaker);
 };
 
 /**

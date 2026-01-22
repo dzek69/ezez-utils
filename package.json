@@ -1,6 +1,6 @@
 {
   "name": "@ezez/utils",
-  "version": "4.7.2",
+  "version": "4.8.0",
   "repository": "https://github.com/dzek69/bottom-line.git",
   "author": "Jacek Nowacki @dzek69 <git-public@dzek.eu>",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
-    "@ezez/eslint": "^9.37.4",
+    "@ezez/eslint": "^9.39.3",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.14.168",
     "@types/node": "^20.8.3",

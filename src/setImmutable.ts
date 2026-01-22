@@ -30,7 +30,7 @@ const hasOnlyValidPathParts = (array: unknown[]) => {
  * Path to store value in. Can be a dot-separated string or an array of strings.
  * Numbers are allowed for convenience.
  */
-type Path = number | string | (number | string)[];
+type Path = number | string | Array<number | string>;
 
 const getPathParts = (path: Path) => {
     if (typeof path === "number") {

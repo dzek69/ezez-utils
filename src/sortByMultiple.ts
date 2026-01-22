@@ -30,7 +30,7 @@
 const sortByMultiple = <
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     T extends Record<string | number | symbol, any>,
-    K extends (keyof T)[],
+    K extends Array<keyof T>,
 >(
     propertyNames: K,
     ascending: boolean | Record<K[number], boolean> = true,

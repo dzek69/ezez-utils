@@ -18,8 +18,8 @@ importers:
         specifier: ^7.26.0
         version: 7.26.0(@babel/core@7.26.9)
       '@ezez/eslint':
-        specifier: ^9.37.4
-        version: 9.37.4(@typescript-eslint/parser@8.46.0(eslint@9.37.0)(typescript@5.8.2))(eslint@9.37.0)(typescript@5.8.2)
+        specifier: ^9.39.3
+        version: 9.39.3(@typescript-eslint/parser@8.46.0(eslint@9.37.0)(typescript@5.8.2))(eslint@9.37.0)(typescript@5.8.2)
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -704,8 +704,8 @@ packages:
     peerDependencies:
       eslint: '>8'
 
-  '@ezez/eslint@9.37.4':
-    resolution: {integrity: sha512-imUHmqv0AgQ8Moa/ZnWLHKTSECv9hF1GX5K/HE32vTFD830mtIb8IpuXHtIpBi1SG3JX397RCI5AWThiV/Re5A==}
+  '@ezez/eslint@9.39.3':
+    resolution: {integrity: sha512-anAe4DJdN1tdsdoEccU0N3Tye39elAmZYszAhzWJUagY3dgshxuhbVszsYx7vIBjd6qMZm2jDvdDSlEIi0Nyig==}
     hasBin: true
 
   '@ezez/utils@4.1.0':
@@ -2656,6 +2656,10 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4'
 
+  ts-deepmerge@7.0.3:
+    resolution: {integrity: sha512-Du/ZW2RfwV/D4cmA5rXafYjBQVuvu4qGiEEla4EmEHVHgRdx68Gftx7i66jn2bzHPwSVZY36Ae6OuDn9el4ZKA==}
+    engines: {node: '>=14.13.1'}
+
   ts-node@10.9.2:
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
     hasBin: true
@@ -3650,7 +3654,7 @@ snapshots:
     dependencies:
       eslint: 9.37.0
 
-  '@ezez/eslint@9.37.4(@typescript-eslint/parser@8.46.0(eslint@9.37.0)(typescript@5.8.2))(eslint@9.37.0)(typescript@5.8.2)':
+  '@ezez/eslint@9.39.3(@typescript-eslint/parser@8.46.0(eslint@9.37.0)(typescript@5.8.2))(eslint@9.37.0)(typescript@5.8.2)':
     dependencies:
       '@ezez/__stylistic__eslint-plugin': '@stylistic/eslint-plugin@5.4.0(eslint@9.37.0)'
       '@ezez/__typescript-eslint__eslint-plugin': '@typescript-eslint/eslint-plugin@8.46.0(@typescript-eslint/parser@8.46.0(eslint@9.37.0)(typescript@5.8.2))(eslint@9.37.0)(typescript@5.8.2)'
@@ -3664,6 +3668,7 @@ snapshots:
       '@ezez/eslint-plugin-todo-task-id': 0.1.2(eslint@9.37.0)
       '@ezez/utils': 4.1.0
       execa: 9.6.0
+      ts-deepmerge: 7.0.3
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
       - eslint
@@ -6163,6 +6168,8 @@ snapshots:
   ts-api-utils@2.1.0(typescript@5.8.2):
     dependencies:
       typescript: 5.8.2
+
+  ts-deepmerge@7.0.3: {}
 
   ts-node@10.9.2(@types/node@20.17.23)(typescript@5.8.2):
     dependencies:

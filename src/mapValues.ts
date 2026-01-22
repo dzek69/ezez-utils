@@ -35,7 +35,7 @@ type MapValuesFn<S, R> = (value: S[keyof S], key: keyof S) => R;
 const mapValues = <SourceObject extends Record<string, unknown>, PossibleReturnValues>(
     source: SourceObject, fn: MapValuesFn<SourceObject, PossibleReturnValues>,
 ): { [P in keyof SourceObject]: PossibleReturnValues } => {
-    const keys = Object.keys(source) as (keyof SourceObject)[];
+    const keys = Object.keys(source) as Array<keyof SourceObject>;
 
     // @ts-expect-error TypeScript doesn't work well with this type with reduce
     // @TODO check with ts 5+ or something

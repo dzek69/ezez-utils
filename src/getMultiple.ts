@@ -28,7 +28,7 @@ const DEFAULT = {};
  * // will return 5
  * @returns {*} - found value or default value
  */
-const getMultiple = (source: Source, defaultValue: unknown, ...paths: (string | string[])[]): unknown => {
+const getMultiple = (source: Source, defaultValue: unknown, ...paths: Array<string | string[]>): unknown => {
     const length = paths.length;
     for (let i = 0; i < length; i++) {
         const properties = paths[i]!;
