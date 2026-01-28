@@ -27,7 +27,7 @@ const unserializeFromBuffer = <RT extends any[] = unknown[]>( // eslint-disable-
     let startPoint = 0;
     const result = [];
 
-    while (true) {
+    while (startPoint < intData.length) {
         const dataSplitPoint = intData.indexOf(0, startPoint); // find null
         if (dataSplitPoint === NOT_FOUND) { // no null found = no data
             break;
