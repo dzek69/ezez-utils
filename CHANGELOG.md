@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
+## [4.8.1] - 2026-01-28
+### Fixed
+- removed unserializeFromBuffer artificial limit of returned items
+
 ## [4.8.0] - 2026-01-22
 ### Added
 - `formatHash` method

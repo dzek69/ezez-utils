@@ -1,8 +1,6 @@
 import { deserialize } from "../deserialize.js";
 import { BINARY_MARK_BIN, BINARY_MARK_MAP, BINARY_MARK_STRING } from "./const.js";
 
-const MAX_DATA_PARTS = 4;
-
 const NOT_FOUND = -1;
 const LAST_CHAR = -1;
 
@@ -29,8 +27,7 @@ const unserializeFromBuffer = <RT extends any[] = unknown[]>( // eslint-disable-
     let startPoint = 0;
     const result = [];
 
-    let i = 0;
-    while (i++ < MAX_DATA_PARTS) {
+    while (true) {
         const dataSplitPoint = intData.indexOf(0, startPoint); // find null
         if (dataSplitPoint === NOT_FOUND) { // no null found = no data
             break;

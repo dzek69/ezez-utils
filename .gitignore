@@ -8,3 +8,4 @@
 *.log
 *.tsbuildinfo
 /test.mjs
+/CLAUDE.md
