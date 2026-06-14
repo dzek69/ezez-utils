@@ -9,15 +9,15 @@ interface Opts {
     trailing?: boolean;
 }
 
-interface Extras {
+interface Extras<R = unknown> {
     /**
      * Stops any planned calls (and resets the `time` array progress)
      */
     cancel: () => void;
     /**
-     * Immediately runs planned call.
+     * Immediately runs planned call, returning its result (or the last cached result if nothing is planned).
      */
-    flush: () => void;
+    flush: () => R | undefined;
 }
 
 const defaultOptions: Required<Opts> = {
@@ -48,7 +48,7 @@ type CanReturnUndefined<F extends (...args: any[]) => any> = (...args: Parameter
  */
 const throttle = <RT, F extends (...args: any[]) => RT>( // eslint-disable-line max-lines-per-function, @typescript-eslint/no-explicit-any
     fn: F, time: number | [number, ...number[]] = 0, options?: Opts,
-): CanReturnUndefined<F> & Extras => {
+): CanReturnUndefined<F> & Extras<RT> => {
     const opts: Required<Opts> = {
         leading: options?.leading ?? defaultOptions.leading,
         trailing: options?.trailing ?? defaultOptions.trailing,
@@ -109,7 +109,7 @@ const throttle = <RT, F extends (...args: any[]) => RT>( // eslint-disable-line 
         }, lastRun ? (lastTime - diffLastRun + 1) : lastTime);
 
         return lastResult;
-    }) as (CanReturnUndefined<F> & Extras);
+    }) as (CanReturnUndefined<F> & Extras<RT>);
 
     throttledFn.cancel = () => {
         timeoutId !== null && clearTimeout(timeoutId);
@@ -130,11 +130,10 @@ const throttle = <RT, F extends (...args: any[]) => RT>( // eslint-disable-line 
     };
     throttledFn.flush = () => {
         if (timeoutId !== null) {
-            lastRun = Date.now();
-            lastResult = fn(...lastArgs);
             clearTimeout(timeoutId);
             timeoutId = null;
-            return throttledFn(...lastArgs);
+            lastRun = Date.now();
+            lastResult = fn(...lastArgs);
         }
         return lastResult;
     };

@@ -16,7 +16,8 @@ describe("mostFrequent", () => {
     });
 
     it("returns undefined if array empty", () => {
-        must(mostFrequent([])).equal(undefined);
+        const result = mostFrequent<number>([]);
+        must(result).equal(undefined);
     });
 
     it("compares strictly", () => {

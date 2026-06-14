@@ -21,10 +21,13 @@ const samples = <T>(array: T[], elementsToPick: number, allowShuffle = false): T
     }
 
     const keys = Object.keys(array);
+    // when shuffling we may be asked for more than we have - never pick more than exists, or we'd
+    // run out of keys and pad the result with `undefined`
+    const toPick = Math.min(elementsToPick, keys.length);
     let picked = 0;
     const result: T[] = [];
 
-    while (picked < elementsToPick) {
+    while (picked < toPick) {
         const indexOfKey = Math.floor(Math.random() * keys.length);
         const indexOfArray = Number(keys[indexOfKey]);
         const element = array[indexOfArray]!;

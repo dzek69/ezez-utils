@@ -49,5 +49,3 @@ const retry = async <T>(fn: () => Promise<T>, options?: Options): Promise<T> => 
 export {
     retry,
 };
-
-// TODO unit tests

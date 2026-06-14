@@ -53,6 +53,19 @@ describe("waitFor", () => {
         must(Date.now() - start).be.gte(300);
     });
 
+    it("falls back to the default interval when other options are given without `interval`", async () => {
+        const spy = createSpy(() => false);
+
+        // only `timeout` is provided, `interval` is omitted -> should still use the 50ms default.
+        // BUG: implementation reads the raw `options.interval` (undefined) instead of the merged
+        // `opts.interval`, so setTimeout fires at 0ms and the check busy-loops.
+        waitFor(spy, { timeout: 250 }).catch(() => { /* expected to reject on timeout */ });
+        await wait(120);
+
+        // with the default 50ms interval checks land at ~0/50/100ms => ~3 calls by now
+        must(spy.__spy.calls.length).be.lte(4);
+    });
+
     it("time outs after given time", async () => {
         const spy = createSpy(() => false);
         // eslint-disable-next-line @typescript-eslint/await-thenable
@@ -97,6 +110,54 @@ describe("waitFor", () => {
         }, (e: unknown) => {
             must(e).instanceOf(Error);
             must((e as Error).message).equal("[waitFor] check function threw an error");
+        });
+    });
+
+    describe("error stack traces point at the caller", () => {
+        // Helper with a recognizable name so we can assert it appears in the stack.
+        const callerOfWaitFor = <T>(...args: Parameters<typeof waitFor<T>>): Promise<T> => {
+            return waitFor<T>(...args);
+        };
+
+        it("on timeout", async () => {
+            await callerOfWaitFor(() => false, { interval: 40, timeout: 100 }).then(() => {
+                throw new Error("Should not resolve");
+            }, (e: unknown) => {
+                must((e as Error).message).equal("[waitFor] Timeout");
+                must((e as Error).stack).include("callerOfWaitFor");
+            });
+        });
+
+        it("on max tries reached", async () => {
+            await callerOfWaitFor(() => false, { interval: 40, maxTries: 2 }).then(() => {
+                throw new Error("Should not resolve");
+            }, (e: unknown) => {
+                must((e as Error).message).equal("[waitFor] Max tries reached");
+                must((e as Error).stack).include("callerOfWaitFor");
+            });
+        });
+
+        it("on invalid maxTries", async () => {
+            await callerOfWaitFor(() => null, { maxTries: 0 }).then(() => {
+                throw new Error("Should not resolve");
+            }, (e: unknown) => {
+                must(e).instanceOf(TypeError);
+                must((e as Error).stack).include("callerOfWaitFor");
+            });
+        });
+
+        it("on check function throwing, and preserves original error as cause", async () => {
+            const original = new Error("boom");
+            await callerOfWaitFor(() => {
+                throw original;
+            }, { interval: 40 }).then(() => {
+                throw new Error("Should not resolve");
+            }, (e: unknown) => {
+                must((e as Error).message).equal("[waitFor] check function threw an error");
+                must((e as Error).stack).include("callerOfWaitFor");
+                must((e as Error & { cause?: unknown }).cause).equal(original);
+                must((e as Error & { details?: { error?: unknown } }).details!.error).equal(original);
+            });
         });
     });
 

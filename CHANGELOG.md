@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [UNRELEASED]
 - (nothing yet)
 
+## [4.8.2] - 2026-06-14
+### Changed
+- `waitFor` rejected errors now keep the original error as `cause` and their stack trace points at the caller
+- `mostFrequent` return type is now `T | undefined` (it returns `undefined` for empty arrays)
+- `throttle`'s `flush` is now correctly typed to return the function's result instead of `void`
+### Fixed
+- `waitFor` could call the check function too frequently
+- `trimStart` and `trimEnd` infinite loop when the characters to trim were an empty string
+- `samples` padding the result with `undefined` when `allowShuffle` was used with a count greater than the array length
+- `scale` now throws instead of returning `NaN` when `fromMin` equals `fromMax`
+- `throttle` `flush` running the planned call and then scheduling another one instead of running it just once
+### Dev
+- added missing tests for `race`, `retry` and `throttle.flush`
+
 ## [4.8.1] - 2026-01-28
 ### Fixed
 - removed unserializeFromBuffer artificial limit of returned items

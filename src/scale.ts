@@ -8,8 +8,12 @@
  * @param {number} toMin
  * @param {number} toMax
  * @param {number} number
+ * @throws {Error} when `fromMin` equals `fromMax` (the source range has zero width)
  */
 const scale = (fromMin: number, fromMax: number, toMin: number, toMax: number, number: number): number => {
+    if (fromMin === fromMax) {
+        throw new Error("[scale] fromMin and fromMax must not be equal");
+    }
     return toMin + ((number - fromMin) / (fromMax - fromMin) * (toMax - toMin));
 };
 

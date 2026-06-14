@@ -27,6 +27,18 @@ const defaultOptions: Required<Options> = {
 };
 
 /**
+ * Appends the synchronously-captured caller frames onto an error created later (on a timer or
+ * microtask), so its stack trace points at whoever called `waitFor` instead of just node internals.
+ */
+const graftCallerStack = (error: Error, callSite: Error): void => {
+    const callerFrames = callSite.stack?.replace(/^.*\n/u, "");
+    if (callerFrames) {
+        // eslint-disable-next-line no-param-reassign
+        error.stack = error.stack ? `${error.stack}\n${callerFrames}` : callerFrames;
+    }
+};
+
+/**
  * Runs the callback function every specified interval and returns a Promise that resolves when the callback returns
  * any other value than `null`, `undefined` or `false`.
  * If your callback throws (or Promise rejects) it will stop the interval and reject the returned Promise.
@@ -39,26 +51,35 @@ const defaultOptions: Required<Options> = {
  * @param fn - callback function
  * @param options - options object
  */
-const waitFor = <T>(fn: () => MaybePromise<T>, options: Options = defaultOptions): Promise<T> => {
+const waitFor = <T>(fn: () => MaybePromise<T>, options: Options = defaultOptions): Promise<T> => { // eslint-disable-line max-lines-per-function
+    // Captured synchronously on the caller's stack: once execution hops onto a timer or
+    // microtask those frames are gone, so we graft them back onto any rejected error (see
+    // `graftCallerStack`) to keep production stack traces pointing at the actual caller.
+    const callSite = new Error();
+
     return new Promise<T>((resolve, reject) => {
         let intervalTimer: TTimeout, failTimer: TTimeout;
 
+        const fail = (error: Error): void => {
+            graftCallerStack(error, callSite);
+            clearTimeout(failTimer);
+            clearTimeout(intervalTimer);
+            reject(error);
+        };
+
         const opts = { ...defaultOptions, ...options };
         if (typeof opts.maxTries === "number" && opts.maxTries < 1) {
-            reject(new TypeError("[waitFor] maxTries must be greater than 0"));
+            fail(new TypeError("[waitFor] maxTries must be greater than 0"));
             return;
         }
 
         if (Number.isFinite(opts.timeout)) {
             failTimer = setTimeout(() => {
-                reject(new Error("[waitFor] Timeout"));
-                clearTimeout(intervalTimer);
+                fail(new Error("[waitFor] Timeout"));
             }, opts.timeout);
         }
 
         let tries = 0;
-
-        // eslint-disable-next-line max-statements
         const tryFn = (async () => {
             try {
                 tries++;
@@ -71,24 +92,21 @@ const waitFor = <T>(fn: () => MaybePromise<T>, options: Options = defaultOptions
                 }
                 else {
                     if (Number.isFinite(opts.maxTries) && tries >= opts.maxTries) {
-                        clearTimeout(failTimer);
-                        clearTimeout(intervalTimer);
-                        reject(new Error("[waitFor] Max tries reached"));
+                        fail(new Error("[waitFor] Max tries reached"));
                         return;
                     }
 
                     intervalTimer = setTimeout(() => {
                         tryFn().catch(noop);
-                    }, options.interval);
+                    }, opts.interval);
                 }
             }
             catch (error: unknown) {
-                clearTimeout(failTimer);
-                clearTimeout(intervalTimer);
-
-                const e: Error & { details?: unknown } = new Error("[waitFor] check function threw an error");
+                const e: Error & { details?: unknown } = new Error(
+                    "[waitFor] check function threw an error", { cause: error },
+                );
                 e.details = { error };
-                reject(e);
+                fail(e);
             }
         });
         tryFn().catch(noop);

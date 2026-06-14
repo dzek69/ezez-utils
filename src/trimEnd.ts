@@ -10,6 +10,9 @@
  * trimEnd("!aaa!!", "!"); // "!aaa"
  */
 const trimEnd = (source: string, characters: string): string => {
+    if (characters === "") {
+        return source;
+    }
     let s = source;
     while (s.endsWith(characters)) {
         s = s.slice(0, -characters.length);

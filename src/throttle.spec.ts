@@ -133,4 +133,39 @@ describe("throttle", function() {
         diffs[2].must.be.gte(300);
         diffs[2].must.be.lt(350);
     });
+
+    describe("flush", function() {
+        it("runs the pending trailing call immediately and only once", async function() {
+            let calls = 0;
+            const fn = () => {
+                calls++;
+                return calls;
+            };
+
+            const throttled = throttle(fn, 100, { leading: false, trailing: true });
+            throttled(); // schedules a trailing call ~100ms from now
+            throttled.flush(); // should run that planned call right now
+
+            calls.must.equal(1);
+
+            // flush must NOT leave (or schedule) another planned call behind
+            await wait(200);
+            calls.must.equal(1);
+        });
+
+        it("is a no-op returning the last result when nothing is pending", async function() {
+            let calls = 0;
+            const fn = () => {
+                calls++;
+                return calls;
+            };
+
+            const throttled = throttle(fn, 100, { leading: true, trailing: true });
+            throttled(); // leading call runs immediately, nothing is pending afterwards
+            calls.must.equal(1);
+
+            throttled.flush();
+            calls.must.equal(1); // flush did not call fn again
+        });
+    });
 });

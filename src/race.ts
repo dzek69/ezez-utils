@@ -26,5 +26,3 @@ const race = <T>(promise: Promise<T>, timeout: number, message = "Race: Timeout"
 export {
     race,
 };
-
-// TODO unit tests

@@ -19,4 +19,9 @@ describe("trimStart", () => {
         must(trimStart("abc", "abc")).equal("");
         must(trimStart("aaa", "a")).equal("");
     });
+
+    it("should return the source unchanged when characters is empty", async () => {
+        must(trimStart("hello", "")).equal("hello");
+        must(trimStart("", "")).equal("");
+    });
 });

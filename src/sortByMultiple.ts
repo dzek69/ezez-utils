@@ -23,6 +23,7 @@
  *   { height: 480, bitrate: 300 },
  *   { height: 720, bitrate: 200 },
  *   { height: 720 }, // bitrate assumed to be 150
+ *   { height: 720, bitrate: undefined }, // bitrate assumed to be 150
  *   { height: 720, bitrate: 100 },
  * ]
  * ```

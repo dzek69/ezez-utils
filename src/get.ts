@@ -30,7 +30,7 @@ interface Source { [key: string]: unknown }
  * // else `5` will be returned
  * @returns {*} - found value or default value
  */
-const get = (source: Source, property: string | string[], defaultValue: unknown = undefined): unknown => {
+const get = (source: Source, property: string | string[], defaultValue?: unknown): unknown => {
     const properties = typeof property === "string" ? property.split(".") : [...property];
 
     let result: unknown = source;

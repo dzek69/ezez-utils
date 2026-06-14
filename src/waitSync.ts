@@ -1,7 +1,7 @@
 /**
  * Synchronously wait for a given time, blocking the event loop [!]
- * @param {number} timeMs - time to wait
- * @returns {Promise<void>}
+ * @param timeMs - time to wait
+ * @returns
  */
 const waitSync = (timeMs = 0): void => {
     const s = Date.now();

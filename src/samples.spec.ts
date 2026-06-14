@@ -47,4 +47,13 @@ describe("samples", () => {
         const elements = [1, 2, 3];
         must(() => samples(elements, -1)).throw();
     });
+
+    it("should not pad with undefined when allowShuffle and elementsToPick exceed length", async () => {
+        const elements = [1, 2, 3];
+        // BUG: with allowShuffle the early-return is skipped and the loop runs `elementsToPick`
+        // times; once the keys are exhausted it pushes `array[NaN]` (undefined) as padding.
+        const result = samples(elements, 5, true);
+        must(result).have.length(3);
+        must(result).not.include(undefined);
+    });
 });

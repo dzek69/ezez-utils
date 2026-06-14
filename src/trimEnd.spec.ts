@@ -19,4 +19,9 @@ describe("trimEnd", () => {
         must(trimEnd("abc", "abc")).equal("");
         must(trimEnd("a", "a")).equal("");
     });
+
+    it("should return the source unchanged when characters is empty", async () => {
+        must(trimEnd("hello", "")).equal("hello");
+        must(trimEnd("", "")).equal("");
+    });
 });
