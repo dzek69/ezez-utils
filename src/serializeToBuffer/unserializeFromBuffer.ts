@@ -11,7 +11,8 @@ type DeserializeArgs = Parameters<typeof deserialize> extends [any, ...infer Res
  * other binary protocols. Make sure to understand how {@link deserialize} works before using this function.
  * @param BufferImplementation - Buffer implementation, in browsers use `buffer` npm package
  * and import it from `buffer/`, in Node.js simply pass `Buffer`.
- * @param deserializeArgs - [customDeserializers] - optional arguments if you need to unserialize custom data types,
+ * @param deserializeArgs - [customDeserializers, options] - optional arguments if you need to unserialize custom
+ * data types or configure the deserialization (see {@link deserialize}),
  * @param rawData - Buffer to unserialize
  * @returns unserialized data
  */

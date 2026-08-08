@@ -4,7 +4,13 @@ The format is based on [EZEZ Changelog](https://ezez.dev/changelog/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [UNRELEASED]
-- (nothing yet)
+## [4.9.0] - 2026-08-08
+### Added
+- `t` and `f` functions that always return `true`/`false`, useful as ready-to-use callbacks, e.g. `fs.access(path).then(t, f)`
+### Breaking
+- `deserialize` (and therefore `unserializeFromBuffer`) now limits the length of a single serialized BigInt value to
+10000 characters by default - parsing time of huge BigInts grows faster than their length, so malicious input could
+block the event loop; the limit can be changed or disabled (`Infinity`) with the new `maxBigIntLength` option
 
 ## [4.8.2] - 2026-06-14
 ### Changed

@@ -69,6 +69,22 @@ describe("deserialize", () => {
         must(() => deserialize(`"v:test"`)).throw("Unsupported data type: v");
     });
 
+    it("limits the length of serialized BigInt values", () => {
+        const huge = `"i:${"9".repeat(10001)}"`;
+        must(() => deserialize(huge)).throw(
+            /Serialized BigInt length \(10001\) exceeds the maximum allowed length \(10000\)/u,
+        );
+
+        must(deserialize(`"i:${"9".repeat(10000)}"`)).equal(BigInt("9".repeat(10000)));
+
+        must(() => deserialize(`"i:123456"`, undefined, { maxBigIntLength: 5 })).throw(
+            /Serialized BigInt length \(6\) exceeds the maximum allowed length \(5\)/u,
+        );
+        must(deserialize(`"i:12345"`, undefined, { maxBigIntLength: 5 })).equal(12345n);
+
+        must(deserialize(huge, undefined, { maxBigIntLength: Infinity })).equal(BigInt("9".repeat(10001)));
+    });
+
     it("supports deserializers with things like Date", async () => {
         const customSerializers: CustomDeserializers = {
             D: (value) => {
