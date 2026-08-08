@@ -13,17 +13,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
 
       - name: Build documentation
         run: |
           VER=$(cat ./package.json | jq -r .version)
           echo Detected version: $VER
           if [[ "$VER" == *"+"* ]]; then echo "WIP/+ version detected, skipping"; exit 1; fi
-          yarn
-          yarn docs
+          pnpm install --frozen-lockfile
+          pnpm run docs
           echo "APP_VERSION=$VER" >> "$GITHUB_ENV"
           cat $GITHUB_ENV
 
