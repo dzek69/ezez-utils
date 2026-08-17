@@ -161,4 +161,27 @@ describe("replaceDeep", () => {
             mutate: false,
         })).throw("`replaceInstancesProps` option requires `mutate` to be enabled");
     });
+
+    it("does not swap the prototype when data contains an own __proto__ key (prototype-pollution guard)", () => {
+        const input = JSON.parse('{"__proto__":{"isAdmin":true},"role":"guest"}') as Record<string, unknown>;
+        const result = replaceDeep(input, "guest", "user");
+
+        must(result.role).equal("user");
+        // the __proto__ value must be a harmless own property, not injected via the prototype
+        must((result as { isAdmin?: unknown }).isAdmin).be.undefined();
+        must(Object.getPrototypeOf(result)).equal(Object.prototype);
+        must(Object.prototype.hasOwnProperty.call(result, "__proto__")).be.true();
+        // global prototype stays clean
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        must(({} as any).isAdmin).be.undefined();
+    });
+
+    it("keeps Object methods when data has __proto__: null (no null-prototype corruption)", () => {
+        const input = JSON.parse('{"__proto__":null,"x":1}') as Record<string, unknown>;
+        const result = replaceDeep(input, 1, 2);
+
+        must(result.x).equal(2);
+        must(Object.getPrototypeOf(result)).equal(Object.prototype);
+        must(typeof (result as { hasOwnProperty: unknown }).hasOwnProperty).equal("function");
+    });
 });

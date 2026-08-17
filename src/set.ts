@@ -7,6 +7,10 @@ interface Source { [key: string]: unknown }
 
 const isObject = (value: unknown) => (typeof value === "object" || typeof value === "function") && value !== null;
 
+// Keys that could reach the prototype chain and pollute `Object.prototype` (or a constructor). A path containing any of
+// them is rejected outright to prevent prototype pollution from untrusted input.
+const FORBIDDEN_KEYS = new Set(["__proto__", "constructor", "prototype"]);
+
 /**
  * Updates the value at given path of given object. It mutates the object. If path is not found then objects are created
  * "on the way". If non-objects are found, they are replaced with new plain objects. If primitives are used as source
@@ -30,8 +34,12 @@ const isObject = (value: unknown) => (typeof value === "object" || typeof value 
  * { "items": { "0": value }}
  * @returns {Object} - given object or new object if source was primitive
  */
-const set = (source: Source, path: string | string[], value: unknown): Source | unknown => { // eslint-disable-line @typescript-eslint/no-redundant-type-constituents
+const set = (source: Source, path: string | string[], value: unknown): Source | unknown => { // eslint-disable-line max-statements, @typescript-eslint/no-redundant-type-constituents
     const pathParts = typeof path === "string" ? path.split(".") : path;
+    if (pathParts.some((part) => FORBIDDEN_KEYS.has(part))) {
+        // Malformed/malicious path, refuse up front so nothing is mutated (fail-fast, no partial write).
+        throw new TypeError("Path must not contain prototype-polluting keys (__proto__, constructor, prototype)");
+    }
     const len = pathParts.length;
 
     const result = isObject(source) ? source : {};

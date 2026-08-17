@@ -42,6 +42,12 @@ const unserializeFromBuffer = <RT extends any[] = unknown[]>( // eslint-disable-
 
         const len = Number(lengthBytes.slice(0, lengthBytes.length - 1));
 
+        // A malformed/malicious length (negative, fractional or NaN) would move the read pointer backwards or nowhere,
+        // making `indexOf` keep finding the same separator forever and blocking the event loop. Reject it up front.
+        if (!Number.isInteger(len) || len < 0) {
+            throw new Error(`Invalid data length: ${lengthBytes.slice(0, lengthBytes.length - 1)}`);
+        }
+
         const dataStringFrom = dataSplitPoint + 1;
         const dataStringTo = dataStringFrom + len;
         const dataBytes = intData.slice(dataStringFrom, dataStringTo);

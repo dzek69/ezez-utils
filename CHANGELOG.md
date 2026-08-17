@@ -4,6 +4,14 @@ The format is based on [EZEZ Changelog](https://ezez.dev/changelog/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [UNRELEASED]
+(nothing yet)
+
+## [4.9.1] - 2026-08-17
+### Fixed
+- `set` prototype pollution (now throwing if tried)
+- `unserializeFromBuffer` infinite loop DoS (throwing on malicious payload)
+- `merge`, `setImmutable`, `replaceDeepByFn` (and therefore `serialize`) possible local prototype pollution (normalized)
+
 ## [4.9.0] - 2026-08-08
 ### Added
 - `t` and `f` functions that always return `true`/`false`, useful as ready-to-use callbacks, e.g. `fs.access(path).then(t, f)`

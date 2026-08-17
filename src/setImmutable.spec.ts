@@ -238,4 +238,12 @@ describe("setImmutable", () => {
             },
         });
     });
+
+    it("throws on prototype-polluting keys and leaves Object.prototype clean", () => {
+        (() => setImmutable({}, "__proto__.polluted", "yes")).must.throw(TypeError, /prototype-polluting/u);
+        (() => setImmutable({}, "constructor.prototype.polluted", "yes")).must.throw(TypeError, /prototype-polluting/u);
+        (() => setImmutable({}, ["a", "__proto__", "z"], "yes")).must.throw(TypeError, /prototype-polluting/u);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (({} as any).polluted === undefined).must.be.true();
+    });
 });

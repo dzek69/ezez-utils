@@ -1,5 +1,17 @@
 import { isPlainObject } from "./isPlainObject";
 
+// Assigning to the "__proto__" key via `obj[key] = value` triggers the inherited setter and swaps the object's
+// prototype instead of adding a property (a prototype-pollution gadget). `Object.defineProperty` stores it as a plain
+// own property instead, keeping the rebuilt object safe. Mirrors lodash's `baseAssignValue`.
+const safeAssign = (object: Record<string, unknown>, key: string, value: unknown): void => {
+    if (key === "__proto__") {
+        Object.defineProperty(object, key, { configurable: true, enumerable: true, value, writable: true });
+    }
+    else {
+        object[key] = value; // eslint-disable-line no-param-reassign
+    }
+};
+
 type Options = {
     /**
      * If true, the source objects and arrays will be mutated. Default is false.
@@ -66,10 +78,9 @@ const replaceDeepByFn = <T>( // eslint-disable-line max-statements
         if (options?.mutate) {
             if (isPlainObject(source) || options.replaceInstancesProps) {
                 for (const key of Object.keys(source)) {
-                    // eslint-disable-next-line no-param-reassign
-                    (source as Record<string, unknown>)[key] = replaceDeepByFn(
+                    safeAssign(source as Record<string, unknown>, key, replaceDeepByFn(
                         (source as Record<string, unknown>)[key], search, replaceWith, options,
-                    );
+                    ));
                 }
             }
 
@@ -77,9 +88,9 @@ const replaceDeepByFn = <T>( // eslint-disable-line max-statements
         }
 
         if (isPlainObject(source)) {
-            return Object.keys(source).reduce<Record<string, unknown>>((acc, key) => {
-                // eslint-disable-next-line no-param-reassign
-                acc[key] = replaceDeepByFn((source as Record<string, unknown>)[key], search, replaceWith, options);
+            const src = source as Record<string, unknown>;
+            return Object.keys(src).reduce<Record<string, unknown>>((acc, key) => {
+                safeAssign(acc, key, replaceDeepByFn(src[key], search, replaceWith, options));
                 return acc;
             }, {}) as T;
         }

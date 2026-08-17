@@ -96,4 +96,15 @@ describe("deserialize", () => {
         must(result).be.instanceof(Date);
         must(result.getTime()).equal(1714398481437);
     });
+
+    it("does not corrupt the prototype for data with an own __proto__ key", () => {
+        // the undefined marker routes the result through replaceDeep, which must not swap the prototype
+        const result = deserialize<Record<string, unknown>>('{"__proto__":{"evil":"s:pwned"},"y":"u:"}');
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        must(({} as any).evil).be.undefined();
+        must((result as { evil?: unknown }).evil).be.undefined();
+        must(Object.getPrototypeOf(result)).equal(Object.prototype);
+        must(Object.prototype.hasOwnProperty.call(result, "__proto__")).be.true();
+    });
 });

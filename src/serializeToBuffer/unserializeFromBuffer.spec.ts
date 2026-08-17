@@ -70,4 +70,15 @@ describe("unserialize", () => {
             0x35, 0x6a, 0x00, 0x22, 0x6e, 0x3a, 0x39, 0x22, 0x00,
         ]))).eql(["ping2", 5, true, 6, 9]);
     });
+
+    it("rejects a negative length instead of looping forever (DoS guard)", async () => {
+        // "-5f\0" : mark "f" (string) with a negative declared length would move the read pointer backwards,
+        // making the parser find the same separator forever. It must throw quickly instead of hanging.
+        must(() => { unserialize(Buffer.from("-5f\0", "latin1")); }).throw(Error, /Invalid data length/u);
+        must(() => { unserialize(Buffer.from("-9f\0", "latin1")); }).throw(Error, /Invalid data length/u);
+    });
+
+    it("rejects a non-integer length", async () => {
+        must(() => { unserialize(Buffer.from("1.5f\0abc", "latin1")); }).throw(Error, /Invalid data length/u);
+    });
 });

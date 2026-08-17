@@ -5,6 +5,10 @@
  */
 const UNSET = typeof Symbol !== "undefined" ? Symbol("UNSET") : {};
 
+// Keys that, when assigned via bracket notation, mutate the prototype chain instead of adding a normal property.
+// Their presence in untrusted input (e.g. from `JSON.parse`) is treated as an error rather than corrupting the result.
+const FORBIDDEN_KEYS = new Set(["__proto__", "constructor", "prototype"]);
+
 /**
  * Merges two objects into one. If the same property is present in both objects, the value from the second object is
  * used.
@@ -59,6 +63,12 @@ const merge: Merge = <MergeCandidate extends object>(...args: MergeCandidate[]) 
     args.forEach((obj) => {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         Object.entries(obj || {}).forEach(([key, value]) => {
+            if (FORBIDDEN_KEYS.has(key)) {
+                // Malformed/malicious input, refuse the whole merge rather than silently dropping a key.
+                throw new TypeError(
+                    "Object must not contain prototype-polluting keys (__proto__, constructor, prototype)",
+                );
+            }
             if (value === UNSET) {
                 // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
                 delete r[key];

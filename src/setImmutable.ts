@@ -7,6 +7,10 @@ interface Source { [key: string]: unknown }
 
 const isObject = (value: unknown) => (typeof value === "object" || typeof value === "function") && value !== null;
 
+// Keys that could reach and pollute the prototype chain. Traversing into any of them is refused to prevent prototype
+// pollution from untrusted paths.
+const FORBIDDEN_KEYS = new Set(["__proto__", "constructor", "prototype"]);
+
 const clone = (value: unknown[] | Source) => {
     if (Array.isArray(value)) {
         return [...value];
@@ -72,6 +76,9 @@ const setImmutable = (source: Source, path: Path, value: unknown): Source | unkn
     const isValidPath = hasOnlyValidPathParts(pathParts);
     if (!isValidPath) {
         throw new TypeError("Path must not be empty or contain empty parts");
+    }
+    if (pathParts.some((part) => FORBIDDEN_KEYS.has(String(part)))) {
+        throw new TypeError("Path must not contain prototype-polluting keys (__proto__, constructor, prototype)");
     }
     const len = pathParts.length;
 
