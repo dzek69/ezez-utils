@@ -1,2 +1,7 @@
 allowBuilds:
   unrs-resolver: false
+
+# `@ezez/eslint` pulls in ts-deepmerge <8, which has a moderate prototype-method-override DoS advisory
+# (GHSA-87mf-gv2c-c62c). It is a dev-only, transitive dependency; pin it to the patched line.
+overrides:
+  ts-deepmerge@<8.0.0: ^8.0.0

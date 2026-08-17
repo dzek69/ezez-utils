@@ -15,7 +15,7 @@
     "lint": "ezlint src",
     "lint:fix": "pnpm run lint --fix",
     "prepack": "pnpm run compile",
-    "prepublishOnly": "pnpm run lint && pnpm run test && pnpm run docs",
+    "prepublishOnly": "pnpm audit && pnpm run lint && pnpm run test && pnpm run docs",
     "prepare": "husky install",
     "updates": "pnpm dlx npm-check-updates --dep prod",
     "updates:dev": "pnpm dlx npm-check-updates --dep dev",

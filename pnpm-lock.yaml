@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  ts-deepmerge@<8.0.0: ^8.0.0
+
 importers:
 
   .:
@@ -2856,8 +2859,8 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4'
 
-  ts-deepmerge@7.0.3:
-    resolution: {integrity: sha512-Du/ZW2RfwV/D4cmA5rXafYjBQVuvu4qGiEEla4EmEHVHgRdx68Gftx7i66jn2bzHPwSVZY36Ae6OuDn9el4ZKA==}
+  ts-deepmerge@8.0.0:
+    resolution: {integrity: sha512-133O+10nJmVI8w5xeVZPEv5PIrv7iaUae07wv1aH8XJH95Ur6YIhWAPhPyP1YPlbPS9fCVcNIZTu7m8urRVF0A==}
     engines: {node: '>=14.13.1'}
 
   tsconfig-paths@3.15.0:
@@ -3883,7 +3886,7 @@ snapshots:
       '@ezez/eslint-plugin-todo-task-id': 0.1.2(eslint@9.39.3)
       '@ezez/utils': 4.8.2
       execa: 9.6.1
-      ts-deepmerge: 7.0.3
+      ts-deepmerge: 8.0.0
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
       - eslint
@@ -4312,7 +4315,7 @@ snapshots:
   '@typescript-eslint/project-service@8.56.1(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.56.1(typescript@5.9.3)
-      '@typescript-eslint/types': 8.56.1
+      '@typescript-eslint/types': 8.66.0
       debug: 4.4.3
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -6549,7 +6552,7 @@ snapshots:
     dependencies:
       typescript: 5.9.3
 
-  ts-deepmerge@7.0.3: {}
+  ts-deepmerge@8.0.0: {}
 
   tsconfig-paths@3.15.0:
     dependencies:
