@@ -1,8 +1,8 @@
 import { mapAsync } from "./mapAsync.js";
-import { wait } from "./wait.js";
+import { waitSync } from "./waitSync.js";
 
 const slowCb = (val: number) => {
-    wait.sync(5);
+    waitSync(5);
     return val + 1;
 };
 

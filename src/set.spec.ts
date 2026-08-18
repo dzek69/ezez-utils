@@ -345,4 +345,33 @@ describe("set", () => {
     });
 
     // @todo test Maps, Sets, etc.
+
+    it("throws on a prototype-polluting __proto__ path and keeps Object.prototype clean", () => {
+        const run = () => {
+            set({}, "__proto__.pollutedProtoSet", "yes");
+        };
+        run.must.throw(TypeError, /prototype-polluting/u);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (({} as any).pollutedProtoSet === undefined).must.be.true();
+    });
+
+    it("throws on a constructor.prototype path", () => {
+        const run = () => {
+            set({}, "constructor.prototype.pollutedCtorSet", "yes");
+        };
+        run.must.throw(TypeError, /prototype-polluting/u);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (({} as any).pollutedCtorSet === undefined).must.be.true();
+    });
+
+    it("throws when a forbidden key appears anywhere in the path (fail-fast, no partial write)", () => {
+        const obj = {};
+        const run = () => {
+            set(obj, "a.constructor.z", 1);
+        };
+        run.must.throw(TypeError, /prototype-polluting/u);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (({} as any).z === undefined).must.be.true();
+        obj.must.eql({});
+    });
 });

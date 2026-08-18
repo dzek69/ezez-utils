@@ -2,6 +2,8 @@ import { waitSync } from "./waitSync.js";
 
 describe("wait", () => {
     it("doesn't return value", () => {
+        // waitSync returns void by design; this test intentionally asserts that
+        // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
         must(waitSync(0)).be.equal(undefined);
     });
 

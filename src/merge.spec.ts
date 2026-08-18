@@ -62,4 +62,24 @@ describe("merge", () => {
             c: true,
         });
     });
+
+    it("throws on a prototype-polluting __proto__ key and keeps Object.prototype clean", () => {
+        const payload = JSON.parse("{\"__proto__\":{\"polluted\":1}}") as Record<string, unknown>;
+        (() => {
+            merge({}, payload);
+        }).must.throw(TypeError, /prototype-polluting/u);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (({} as any).polluted === undefined).must.be.true();
+    });
+
+    it("throws on constructor/prototype keys from untrusted input (fail-fast)", () => {
+        const ctor = JSON.parse("{\"constructor\":\"x\",\"b\":2}") as Record<string, unknown>;
+        const proto = JSON.parse("{\"prototype\":\"y\",\"b\":2}") as Record<string, unknown>;
+        (() => {
+            merge({ a: 1 }, ctor);
+        }).must.throw(TypeError, /prototype-polluting/u);
+        (() => {
+            merge({ a: 1 }, proto);
+        }).must.throw(TypeError, /prototype-polluting/u);
+    });
 });
